@@ -29,5 +29,5 @@ Vagrant.configure("2") do |config|
   end
 end
 
-argocd-server-5f4dd5d648-5bdm8
-8IwI2Z05O6zbDypH
+# argocd-server-5f4dd5d648-5bdm8
+# 8IwI2Z05O6zbDypH
