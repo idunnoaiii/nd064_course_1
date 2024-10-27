@@ -13,5 +13,5 @@ spec:
       valueFiles:
       - values-prod.yaml
     path: project/helm
-    repoURL: hhttps://github.com/idunnoaiii/nd064_course_1.git
+    repoURL: https://github.com/idunnoaiii/nd064_course_1.git
     targetRevision: HEAD
