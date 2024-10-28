@@ -1,4 +1,5 @@
 import sqlite3
+import sys
 
 from flask import (
     Flask,
@@ -11,6 +12,7 @@ from flask import (
     flash,
 )
 from werkzeug.exceptions import abort
+import logging
 
 db_connection_count = 0
 
@@ -62,14 +64,17 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
+        app.logger.warning('Post not found!')
         return render_template("404.html"), 404
     else:
+        app.logger.info('The "%s" post has been retrieved!', post['title'])
         return render_template("post.html", post=post)
 
 
 # Define the About Us page
 @app.route("/about")
 def about():
+    app.logger.info('The About webpage has been retrieved.')
     return render_template("about.html")
 
 
@@ -90,6 +95,7 @@ def create():
             connection.commit()
             connection.close()
 
+            app.logger.info('The "%s" post has been created sucessfully', title)
             return redirect(url_for("index"))
 
     return render_template("create.html")
@@ -120,4 +126,10 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
+    logging.basicConfig( 
+        level=logging.DEBUG, 
+        stream=sys.stdout, 
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
     app.run(host="0.0.0.0", port="3111")
